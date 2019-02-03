@@ -14,18 +14,21 @@ final class CollectionsUtils {
     private CollectionsUtils(){}
 
     static List<String> generateUnmodifiableListOfStrings() {
+        // TODO Use Java 10 new stuffs
         final List<String> strings = randomizer.objects(String.class, 10).collect(Collectors.toList());
 
         return Collections.unmodifiableList(strings);
     }
 
     static Set<String> generateUnmodifiableSetOfStrings() {
+        // TODO Use Java 10 new stuffs
         Set<String> strings = randomizer.objects(String.class, 10).collect(Collectors.toSet());
 
         return Collections.unmodifiableSet(strings);
     }
 
     static Map<String, String> generateUnmodifiableMapOfStrings() {
+        // TODO Use Java 10 new stuffs
         Map<String, String> stringMap = randomizer.objects(String.class, 10)
                 .collect(Collectors.toMap(Function.identity(), Function.identity()));
 

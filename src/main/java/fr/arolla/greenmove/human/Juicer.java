@@ -32,7 +32,7 @@ public class Juicer {
                     MAX_NUMBER_OF_SCOOTERS - currentNumberOfCollectedScooters);
             collectedScootersToJuice.addAll(tempCollectedScootersToJuice);
         }
-
+        // TODO Use Java 10 new stuffs
         return Collections.unmodifiableList(collectedScootersToJuice);
     }
 

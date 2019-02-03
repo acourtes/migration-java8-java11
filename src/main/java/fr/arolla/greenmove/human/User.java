@@ -24,6 +24,7 @@ public class User {
     }
 
     String getAPublicLocomotion(@NonNull Locomotion locomotion) {
+        // TODO Use Java 9 new stuffs
         if (tryAccessToLocomotion(locomotion).isPresent()) {
             return rentProcess(locomotion);
         } else {
@@ -34,6 +35,7 @@ public class User {
     String getAScooter() {
         Optional<Locomotion> scooterToRent = provider.getAScooterToRent();
 
+        // TODO Use Java 9 new stuffs
         if (scooterToRent.isPresent()) {
             return rentProcess(scooterToRent.get());
         } else {
