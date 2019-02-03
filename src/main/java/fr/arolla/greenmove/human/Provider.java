@@ -1,12 +1,14 @@
 package fr.arolla.greenmove.human;
 
 import fr.arolla.greenmove.Locomotion;
+import fr.arolla.greenmove.LocomotionBatteryState;
 import fr.arolla.greenmove.LocomotionProvider;
 import fr.arolla.greenmove.Scooter;
 import fr.arolla.greenmove.utils.Randomizer;
 import lombok.Data;
 
 import java.util.List;
+import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Data
@@ -20,5 +22,15 @@ public class Provider {
         scooters.forEach(s -> s.setProvider(this.getProviderName()));
 
         return scooters;
+    }
+
+    Optional<Locomotion> getAScooterToRent() {
+        Locomotion scooter = Randomizer.randomizer.nextObject(Scooter.class).setRented(false);
+
+        if (scooter.getBatteryState() == LocomotionBatteryState.FULL) {
+            return Optional.of(scooter);
+        }
+
+        return Optional.empty();
     }
 }

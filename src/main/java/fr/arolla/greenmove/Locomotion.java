@@ -11,7 +11,6 @@ public abstract class Locomotion {
     private LocomotionBatteryState batteryState;
     private LocomotionState state;
     private boolean isRented;
-    private boolean isElectric;
 
     public boolean isPublicLocomotion() {
         return this.category == LocomotionCategory.SCOOTER

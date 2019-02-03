@@ -2,6 +2,7 @@ package fr.arolla.greenmove.human;
 
 import fr.arolla.greenmove.Locomotion;
 import fr.arolla.greenmove.LocomotionCategory;
+import fr.arolla.greenmove.Scooter;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -47,27 +48,62 @@ public class UserTest {
     }
 
     @Test
-    public void a_user_accessing_a_scooter_changes_state_and_get_scooter_id_in_return() {
+    public void a_user_accessing_a_locomotion_changes_state_and_get_scooter_id_in_return() {
         for (int i = 0; i < 10; i++) {
             final Locomotion locomotion = randomizer.nextObject(Locomotion.class);
             user.setUsingALocomotion(false);
             boolean isRentable = user.tryAccessToLocomotion(locomotion).isPresent();
 
-            String scooterId = user.getAScooter(locomotion);
+            String locomotionId = user.getAPublicLocomotion(locomotion);
 
-            if (locomotion.isAScooter() && isRentable) {
-                assertThat(scooterId).isNotBlank();
-                assertThat(locomotion.getId()).isEqualTo(scooterId);
+            if (isRentable) {
+                assertThat(locomotion.getId()).isEqualTo(locomotionId);
                 assertThat(user.isUsingALocomotion()).isTrue();
                 assertThat(locomotion.isRented()).isTrue();
             } else {
-                assertThat(scooterId).isEmpty();
+                assertThat(locomotionId).isEqualTo(":-(");
                 assertThat(user.isUsingALocomotion()).isFalse();
-                if (locomotion.isAScooter()) {
+                assertThat(user.isHappy()).isFalse();
+                if (locomotion.isPublicLocomotion()) {
                     assertThat(locomotion.isRented()).isTrue();
                 }
             }
-
         }
     }
+
+    @Test
+    public void test_successful_scooter_rental_process() {
+        user.setProvider(new GoodProvider());
+        String scooterId = user.getAScooter();
+
+        assertThat(scooterId).isNotBlank();
+        assertThat(scooterId).isEqualTo("ID");
+        assertThat(user.isUsingALocomotion()).isTrue();
+    }
+
+    @Test
+    public void test_unsuccessful_scooter_rental_process() {
+        user.setProvider(new BadProvider());
+        String scooterId = user.getAScooter();
+
+        assertThat(scooterId).isEqualTo(":-(");
+        assertThat(user.isUsingALocomotion()).isFalse();
+        assertThat(user.isHappy()).isFalse();
+    }
+
+    class GoodProvider extends Provider {
+        @Override
+        Optional<Locomotion> getAScooterToRent() {
+            return Optional.of(new Scooter().setRented(false)
+                    .setId("ID"));
+        }
+    }
+
+    class BadProvider extends Provider {
+        @Override
+        Optional<Locomotion> getAScooterToRent() {
+            return Optional.empty();
+        }
+    }
+
 }
