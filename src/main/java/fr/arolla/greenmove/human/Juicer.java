@@ -10,11 +10,10 @@ import lombok.Data;
 import java.util.ArrayList;
 import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Data
-public class Juicer {
+class Juicer {
 
     // A juicer can only hold 10 scooters at the same time
     private static final int MAX_NUMBER_OF_SCOOTERS = 10;
