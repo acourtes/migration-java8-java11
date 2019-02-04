@@ -54,14 +54,12 @@ public class UserTest {
             user.setUsingALocomotion(false);
             boolean isRentable = user.tryAccessToLocomotion(locomotion).isPresent();
 
-            String locomotionId = user.getAPublicLocomotion(locomotion);
+            user.getAPublicLocomotion(locomotion);
 
             if (isRentable) {
-                assertThat(locomotion.getId()).isEqualTo(locomotionId);
                 assertThat(user.isUsingALocomotion()).isTrue();
                 assertThat(locomotion.isRented()).isTrue();
             } else {
-                assertThat(locomotionId).isEqualTo(":-(");
                 assertThat(user.isUsingALocomotion()).isFalse();
                 assertThat(user.isHappy()).isFalse();
                 if (locomotion.isPublicLocomotion()) {
@@ -72,21 +70,20 @@ public class UserTest {
     }
 
     @Test
-    public void test_successful_scooter_rental_process() {
+    public void test_successful_scooter_rental_process_bis() {
         user.setProvider(new GoodProvider());
-        String scooterId = user.getAScooter();
+        user.getAScooterBis();
 
-        assertThat(scooterId).isNotBlank();
-        assertThat(scooterId).isEqualTo("ID");
         assertThat(user.isUsingALocomotion()).isTrue();
+        assertThat(user.isHappy()).isTrue();
+        assertThat(user.getRentedLocomotionId()).isNotBlank();
     }
 
     @Test
-    public void test_unsuccessful_scooter_rental_process() {
+    public void test_unsuccessful_scooter_rental_process_bis() {
         user.setProvider(new BadProvider());
-        String scooterId = user.getAScooter();
+        user.getAScooterBis();
 
-        assertThat(scooterId).isEqualTo(":-(");
         assertThat(user.isUsingALocomotion()).isFalse();
         assertThat(user.isHappy()).isFalse();
     }

@@ -1,20 +1,14 @@
 package fr.arolla.greenmove.human;
 
-import fr.arolla.greenmove.Locomotion;
-import fr.arolla.greenmove.LocomotionBatteryState;
-import fr.arolla.greenmove.LocomotionProvider;
-import fr.arolla.greenmove.LocomotionState;
-import fr.arolla.greenmove.Scooter;
+import fr.arolla.greenmove.*;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.Collections;
 import java.util.List;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Data
-public class Juicer {
+class Juicer {
 
     // A juicer can only hold 10 scooters at the same time
     private static final int MAX_NUMBER_OF_SCOOTERS = 10;
@@ -32,8 +26,8 @@ public class Juicer {
                     MAX_NUMBER_OF_SCOOTERS - currentNumberOfCollectedScooters);
             collectedScootersToJuice.addAll(tempCollectedScootersToJuice);
         }
-        // TODO Use Java 10 new stuffs
-        return Collections.unmodifiableList(collectedScootersToJuice);
+
+        return List.copyOf(collectedScootersToJuice);
     }
 
     private List<Locomotion> getScootersToJuice(List<Locomotion> listOfLocomotionsToTakeOf

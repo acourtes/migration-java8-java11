@@ -7,10 +7,10 @@ import lombok.NonNull;
 import java.util.Optional;
 
 @Data
-public class User {
+class User {
 
-    public static final String SAD = ":-(";
     private String id;
+    private String rentedLocomotionId;
     private Provider provider;
     private boolean isUsingALocomotion;
     private boolean isHappy;
@@ -23,40 +23,37 @@ public class User {
         return Optional.empty();
     }
 
-    String getAPublicLocomotion(@NonNull Locomotion locomotion) {
+    void getAPublicLocomotion(@NonNull Locomotion locomotion) {
         // TODO Use Java 9 new stuffs
-        if (tryAccessToLocomotion(locomotion).isPresent()) {
-            return rentProcess(locomotion);
+        /*if (tryAccessToLocomotion(locomotion).isPresent()) {
+            rentProcess(locomotion);
         } else {
-            return makeUserSad();
-        }
+            makeUserSad();
+        }*/
+
+        tryAccessToLocomotion(locomotion).ifPresentOrElse(this::rentProcess, this::makeUserSad);
     }
 
-    String getAScooter() {
+    void getAScooterBis() {
         Optional<Locomotion> scooterToRent = provider.getAScooterToRent();
-
-        // TODO Use Java 9 new stuffs
-        if (scooterToRent.isPresent()) {
+        /*if (scooterToRent.isPresent()) {
             return rentProcess(scooterToRent.get());
         } else {
             return makeUserSad();
-        }
+        }*/
+        scooterToRent.ifPresentOrElse(this::rentProcess, this::makeUserSad);
     }
 
-    private String makeUserSad() {
+    private void makeUserSad() {
         this.setHappy(false);
-        return SAD;
     }
 
-    private String rentProcess(Locomotion locomotion) {
+    private void rentProcess(Locomotion locomotion) {
         if (locomotion.isPublicLocomotion() && !locomotion.isRented()) {
             this.setUsingALocomotion(true);
             this.setHappy(true);
+            this.setRentedLocomotionId(locomotion.getId());
             locomotion.setRented(true);
-
-            return locomotion.getId();
         }
-
-        return "";
     }
 }
