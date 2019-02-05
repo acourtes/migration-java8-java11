@@ -1,0 +1,20 @@
+{
+  "events" : {
+    "hiking": {
+      "id": 1,
+      "description": "Let's take some fresh air",
+      "profile": "fan of walking away #GraigDavid",
+      "maxPeople" : 80,
+      "minPeople" : 20,
+      "durationInHours" : 4
+    },
+    "paintBall": {
+      "id": 2,
+      "description": "Clone Wars Remake",
+      "profile": "Be better than StormTroopers",
+      "maxPeople": 30,
+      "minPeople": 10,
+      "durationInHours": 2
+    }
+  }
+}
