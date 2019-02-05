@@ -25,23 +25,22 @@ class User {
 
     void getAPublicLocomotion(@NonNull Locomotion locomotion) {
         // TODO Use Java 9 new stuffs
-        /*if (tryAccessToLocomotion(locomotion).isPresent()) {
+        if (tryAccessToLocomotion(locomotion).isPresent()) {
             rentProcess(locomotion);
         } else {
             makeUserSad();
-        }*/
-
-        tryAccessToLocomotion(locomotion).ifPresentOrElse(this::rentProcess, this::makeUserSad);
+        }
     }
 
     void getAScooter() {
         Optional<Locomotion> scooterToRent = provider.getAScooterToRent();
-        /*if (scooterToRent.isPresent()) {
-            return rentProcess(scooterToRent.get());
+
+        // TODO Use Java 9 new stuffs
+        if (scooterToRent.isPresent()) {
+            rentProcess(scooterToRent.get());
         } else {
-            return makeUserSad();
-        }*/
-        scooterToRent.ifPresentOrElse(this::rentProcess, this::makeUserSad);
+            makeUserSad();
+        }
     }
 
     private void makeUserSad() {
