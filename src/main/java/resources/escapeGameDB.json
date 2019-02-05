@@ -1,0 +1,20 @@
+{
+  "events" : {
+    "independenceDay": {
+      "id": 1,
+      "description": "Help Will Smith To save the world",
+      "profile": "Stereotype of an egocentric American Hero",
+      "maxPeople" : 10,
+      "minPeople" : 5,
+      "durationInHours" : 2
+    },
+    "goToMars": {
+      "id": 2,
+      "description": "Create a rocket to save humanity",
+      "profile": "SpaceX fan boys",
+      "maxPeople": 8,
+      "minPeople": 4,
+      "durationInHours": 2
+    }
+  }
+}
