@@ -2,6 +2,7 @@
   "events" : {
     "hiking": {
       "id": 1,
+      "name": "Hiking",
       "description": "Let's take some fresh air",
       "profile": "fan of walking away #GraigDavid",
       "maxPeople" : 80,
@@ -10,6 +11,7 @@
     },
     "paintBall": {
       "id": 2,
+      "name": "Paint Ball Star Wars Rrole play",
       "description": "Clone Wars Remake",
       "profile": "Be better than StormTroopers",
       "maxPeople": 30,

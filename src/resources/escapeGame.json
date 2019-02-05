@@ -2,6 +2,7 @@
   "events" : {
     "independenceDay": {
       "id": 1,
+      "name": "Independence Day",
       "description": "Help Will Smith To save the world",
       "profile": "Stereotype of an egocentric American Hero",
       "maxPeople" : 10,
@@ -10,6 +11,7 @@
     },
     "goToMars": {
       "id": 2,
+      "name": "Go To Mars",
       "description": "Create a rocket to save humanity",
       "profile": "SpaceX fan boys",
       "maxPeople": 8,

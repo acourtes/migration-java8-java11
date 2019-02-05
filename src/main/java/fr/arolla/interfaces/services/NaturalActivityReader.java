@@ -5,45 +5,57 @@ import com.fasterxml.jackson.core.JsonParser;
 import com.fasterxml.jackson.databind.JsonNode;
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.databind.node.ObjectNode;
-import fr.arolla.interfaces.model.Data;
+import fr.arolla.interfaces.model.Event;
 
+import java.io.File;
 import java.io.IOException;
+import java.net.MalformedURLException;
 import java.net.URL;
 
 public class NaturalActivityReader implements DB {
 
     private static final String PAINT_BALL_EVENT = "paintBall";
-    private static final ClassLoader CLASS_LOADER = NaturalActivityReader.class.getClassLoader();
     private static final String HIKING_EVENT = "hiking";
+    private static final String RESOURCES = "src/resources/";
     private static final String EVENTS = "events";
-    private static final String NATURAL_ACTIVITY_DB_JSON = "naturalActivity.json";
+    private static final String NATURAL_ACTIVITY_DB_JSON = RESOURCES + "naturalActivity.json";
 
     @Override
     public JsonNode getEventsFrom(String fileName) throws IOException {
-        JsonNode rooNode = readFileMoreNicely();
+        JsonNode rooNode = readFile();
         JsonNode eventsNode = getEventsNote(rooNode);
         JsonNode data = eventsNode.get(HIKING_EVENT);
         return data;
     }
 
     @Override
-    public Data map(JsonNode eventData) {
-        Data data = new Data();
-        data.setDesciption(eventData.get("description").toString());
-        data.setId(Integer.valueOf(String.valueOf(eventData.get("id"))));
-        data.setMaxPeople(Integer.valueOf(String.valueOf(eventData.get("maxPeople"))));
-        data.setProfile(String.valueOf(eventData.get("profile")));
-        data.setDurationInHours(Integer.valueOf(String.valueOf(eventData.get("durationInHours"))));
-        data.setMinPeople(Integer.valueOf(String.valueOf(eventData.get("minPeople"))));
-        return data;
+    public Event map(JsonNode eventData) {
+        Event event = new Event();
+        event.setId(Integer.valueOf(String.valueOf(eventData.get("id"))));
+        event.setDesciption(eventData.get("description").toString());
+        event.setName(String.valueOf(eventData.get("name")));
+        event.setMaxPeople(Integer.valueOf(String.valueOf(eventData.get("maxPeople"))));
+        event.setDurationInHours(Integer.valueOf(String.valueOf(eventData.get("durationInHours"))));
+        event.setMinPeople(Integer.valueOf(String.valueOf(eventData.get("minPeople"))));
+        event.setProfile(String.valueOf(eventData.get("profile")));
+        return event;
     }
 
-    private static JsonNode readFileMoreNicely() throws IOException {
+    private static JsonNode readFile() throws IOException {
         ObjectMapper mapper = new ObjectMapper();
         JsonFactory factory = new JsonFactory();
-        URL resource = CLASS_LOADER.getResource(NATURAL_ACTIVITY_DB_JSON);
+        URL resource = createFromNaturalActivityDB();
         JsonParser jsonParser = factory.createParser(resource);
         return mapper.readTree(jsonParser);
+    }
+
+    private static URL createFromNaturalActivityDB() throws MalformedURLException {
+        File myFile = new File(NATURAL_ACTIVITY_DB_JSON);
+        try {
+            return myFile.toURI().toURL();
+        } catch (MalformedURLException e) {
+            throw new MalformedURLException(e.getMessage());
+        }
     }
 
     private static JsonNode getEventsNote(JsonNode root) {
