@@ -7,10 +7,10 @@ import lombok.NonNull;
 import java.util.Optional;
 
 @Data
-public class User {
+class User {
 
-    public static final String SAD = ":-(";
     private String id;
+    private String rentedLocomotionId;
     private Provider provider;
     private boolean isUsingALocomotion;
     private boolean isHappy;
@@ -23,40 +23,36 @@ public class User {
         return Optional.empty();
     }
 
-    String getAPublicLocomotion(@NonNull Locomotion locomotion) {
+    void getAPublicLocomotion(@NonNull Locomotion locomotion) {
         // TODO Use Java 9 new stuffs
         if (tryAccessToLocomotion(locomotion).isPresent()) {
-            return rentProcess(locomotion);
+            rentProcess(locomotion);
         } else {
-            return makeUserSad();
+            makeUserSad();
         }
     }
 
-    String getAScooter() {
+    void getAScooter() {
         Optional<Locomotion> scooterToRent = provider.getAScooterToRent();
 
         // TODO Use Java 9 new stuffs
         if (scooterToRent.isPresent()) {
-            return rentProcess(scooterToRent.get());
+            rentProcess(scooterToRent.get());
         } else {
-            return makeUserSad();
+            makeUserSad();
         }
     }
 
-    private String makeUserSad() {
+    private void makeUserSad() {
         this.setHappy(false);
-        return SAD;
     }
 
-    private String rentProcess(Locomotion locomotion) {
+    private void rentProcess(Locomotion locomotion) {
         if (locomotion.isPublicLocomotion() && !locomotion.isRented()) {
             this.setUsingALocomotion(true);
             this.setHappy(true);
+            this.setRentedLocomotionId(locomotion.getId());
             locomotion.setRented(true);
-
-            return locomotion.getId();
         }
-
-        return "";
     }
 }
