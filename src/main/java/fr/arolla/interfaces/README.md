@@ -3,7 +3,7 @@
 `Study case` : Mr Stevens wants to suggest team buildings activities to his team mates.
 
 
-You have a beautiful services package wich contains some classes. The prupose of thoses classes is to retrieve some data from jsonFiles.
+You have a beautiful services package wich contains some classes. The prupose of thoses classes is to retrieve some event from jsonFiles.
 
 Your goal, is to help Mr Stevens to improve his design using de new features included in Java 9.
   

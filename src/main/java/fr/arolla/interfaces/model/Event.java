@@ -1,7 +1,10 @@
 package fr.arolla.interfaces.model;
 
-public class Data {
+import java.util.Objects;
+
+public class Event {
     private int Id;
+    private String name;
     private String desciption;
     private String profile;
     private int maxPeople;
@@ -10,6 +13,10 @@ public class Data {
 
     public void setId(int id) {
         Id = id;
+    }
+
+    public void setName(String name) {
+        this.name = name;
     }
 
     public void setDesciption(String desciption) {
@@ -30,5 +37,18 @@ public class Data {
 
     public void setDurationInHours(int durationInHours) {
         this.durationInHours = durationInHours;
+    }
+
+    @Override
+    public String toString() {
+        return "Event{" +
+                "Id=" + Id +
+                ", name=" + name +
+                ", desciption=" + desciption +
+                ", profile=" + profile +
+                ", maxPeople=" + maxPeople +
+                ", minPeople=" + minPeople +
+                ", durationInHours=" + durationInHours +
+                '}';
     }
 }
