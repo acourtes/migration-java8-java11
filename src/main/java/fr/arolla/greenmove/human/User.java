@@ -34,7 +34,7 @@ class User {
         tryAccessToLocomotion(locomotion).ifPresentOrElse(this::rentProcess, this::makeUserSad);
     }
 
-    void getAScooterBis() {
+    void getAScooter() {
         Optional<Locomotion> scooterToRent = provider.getAScooterToRent();
         /*if (scooterToRent.isPresent()) {
             return rentProcess(scooterToRent.get());

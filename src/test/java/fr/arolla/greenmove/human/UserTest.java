@@ -72,7 +72,7 @@ public class UserTest {
     @Test
     public void test_successful_scooter_rental_process_bis() {
         user.setProvider(new GoodProvider());
-        user.getAScooterBis();
+        user.getAScooter();
 
         assertThat(user.isUsingALocomotion()).isTrue();
         assertThat(user.isHappy()).isTrue();
@@ -82,7 +82,7 @@ public class UserTest {
     @Test
     public void test_unsuccessful_scooter_rental_process_bis() {
         user.setProvider(new BadProvider());
-        user.getAScooterBis();
+        user.getAScooter();
 
         assertThat(user.isUsingALocomotion()).isFalse();
         assertThat(user.isHappy()).isFalse();
