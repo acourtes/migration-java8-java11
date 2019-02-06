@@ -70,4 +70,19 @@ public class PlayWithStringTest {
 
         assertThat(stringToStrip).isEqualTo(expectedStripedString);
     }
+
+    @Test
+    public void multiply_my_string() {
+        String laugh = "ah";
+        StringBuilder bigLaughBuilder = new StringBuilder();
+        // 10 times "ah"
+        String bigLaugh = "ahahahahahahahahahah";
+
+        // TODO Use a Java 11 feature to make that in one line
+        for (int i = 0; i < 10; i++) {
+            bigLaughBuilder.append(laugh);
+        }
+
+        assertThat(bigLaughBuilder.toString()).isEqualTo(bigLaugh);
+    }
 }

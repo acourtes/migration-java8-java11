@@ -7,6 +7,7 @@ import fr.arolla.greenmove.Scooter;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
 import java.util.List;
 
 import static fr.arolla.Randomizer.randomizer;
@@ -82,4 +83,53 @@ public class JuicerTest {
 
         locomotionsToTakeOf.add(new Scooter());
     }
+
+    @Test
+    public void a_juicer_with_fast_method_just_gets_the_first_scooters_with_low_battery() {
+        juicer.setProvider(new OptimisticProvider());
+
+        List<Locomotion> scootersToJuice = juicer.getOptimisticQuicklyScootersToJuice();
+
+        assertThat(scootersToJuice).hasSize(3);
+    }
+
+    private class OptimisticProvider extends Provider {
+        @Override
+        List<Locomotion> getListOfScootersToTakeOf() {
+            List<Locomotion> scooters = new ArrayList<>();
+            scooters.add(new Scooter().setBatteryState(LocomotionBatteryState.LOW));
+            scooters.add(new Scooter().setBatteryState(LocomotionBatteryState.LOW));
+            scooters.add(new Scooter().setBatteryState(LocomotionBatteryState.LOW));
+            scooters.add(new Scooter().setBatteryState(LocomotionBatteryState.HALF));
+            scooters.add(new Scooter().setBatteryState(LocomotionBatteryState.LOW));
+            scooters.add(new Scooter().setBatteryState(LocomotionBatteryState.LOW));
+
+            return scooters;
+        }
+    }
+
+    @Test
+    public void a_juicer_with_fast_method_just_gets_the_last_scooters_with_not_full_battery() {
+        juicer.setProvider(new PessimisticProvider());
+
+        List<Locomotion> scootersToJuice = juicer.getPessimisticQuicklyScootersToJuice();
+
+        assertThat(scootersToJuice).hasSize(3);
+    }
+
+    private class PessimisticProvider extends Provider {
+        @Override
+        List<Locomotion> getListOfScootersToTakeOf() {
+            List<Locomotion> scooters = new ArrayList<>();
+            scooters.add(new Scooter().setBatteryState(LocomotionBatteryState.FULL));
+            scooters.add(new Scooter().setBatteryState(LocomotionBatteryState.FULL));
+            scooters.add(new Scooter().setBatteryState(LocomotionBatteryState.FULL));
+            scooters.add(new Scooter().setBatteryState(LocomotionBatteryState.HALF));
+            scooters.add(new Scooter().setBatteryState(LocomotionBatteryState.LOW));
+            scooters.add(new Scooter().setBatteryState(LocomotionBatteryState.LOW));
+
+            return scooters;
+        }
+    }
+
 }
