@@ -1,9 +1,15 @@
 package fr.arolla.greenmove.human;
 
-import fr.arolla.greenmove.*;
+import fr.arolla.greenmove.Locomotion;
+import fr.arolla.greenmove.LocomotionBatteryState;
+import fr.arolla.greenmove.LocomotionProvider;
+import fr.arolla.greenmove.LocomotionState;
+import fr.arolla.greenmove.Scooter;
 import lombok.Data;
 
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -17,7 +23,7 @@ class Juicer {
     private Provider provider;
 
     List<Locomotion> askProviderListOfLocomotionsToJuice() {
-        List<Locomotion> collectedScootersToJuice = new ArrayList<>();
+        final List<Locomotion> collectedScootersToJuice = new ArrayList<>();
 
         while (collectedScootersToJuice.size() != 10) {
             int currentNumberOfCollectedScooters = collectedScootersToJuice.size();
@@ -41,5 +47,49 @@ class Juicer {
                         || l.getState() == LocomotionState.GOOD)
                 .limit(numberOfScootersToGet)
                 .collect(Collectors.toList());
+    }
+
+    /**
+     * The principle is : we get a list of scooters to juice. While the battery is low, we take scooters.
+     * At the first scooter with a different level of battery, we stop the process.
+     * The returned list is not modifiable.
+     * @return The list of scooters
+     */
+    List<Locomotion> getOptimisticQuicklyScootersToJuice() {
+        final List<Locomotion> collectedScootersToJuice = new ArrayList<>();
+        final List<Locomotion> listOfLocomotionsToTakeOf = provider.getListOfScootersToTakeOf();
+
+        // TODO Use a Java 9 feature to make all this in one instruction
+        for (Locomotion locomotion : listOfLocomotionsToTakeOf) {
+            if (locomotion.getBatteryState() != LocomotionBatteryState.LOW) {
+                break;
+            }
+
+            collectedScootersToJuice.add(locomotion);
+        }
+
+        return Collections.unmodifiableList(collectedScootersToJuice);
+    }
+
+    /**
+     * The principle is : we get a list of scooters to juice. While the battery is full, we don't take scooters.
+     * At the first scooter with a different level of battery, we take all the remaining.
+     * The returned list is not modifiable.
+     * @return The list of scooters
+     */
+    List<Locomotion> getPessimisticQuicklyScootersToJuice() {
+        final List<Locomotion> listOfLocomotionsToTakeOf = provider.getListOfScootersToTakeOf();
+
+        // TODO Use a Java 9 feature to make all this in one instruction
+        for (Iterator<Locomotion> iterator = listOfLocomotionsToTakeOf.iterator(); iterator.hasNext();) {
+            Locomotion locomotion = iterator.next();
+            if (locomotion.getBatteryState() == LocomotionBatteryState.FULL) {
+                iterator.remove();
+            } else {
+                break;
+            }
+        }
+
+        return Collections.unmodifiableList(listOfLocomotionsToTakeOf);
     }
 }

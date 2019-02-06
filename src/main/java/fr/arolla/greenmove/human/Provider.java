@@ -14,7 +14,7 @@ import java.util.Optional;
 import java.util.stream.Collectors;
 
 @Data
-class Provider {
+public class Provider {
 
     private LocomotionProvider providerName;
 
