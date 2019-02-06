@@ -7,6 +7,8 @@ import fr.arolla.greenmove.Scooter;
 import fr.arolla.greenmove.utils.Randomizer;
 import lombok.Data;
 
+import java.util.Arrays;
+import java.util.Collections;
 import java.util.List;
 import java.util.Optional;
 import java.util.stream.Collectors;
@@ -15,6 +17,14 @@ import java.util.stream.Collectors;
 class Provider {
 
     private LocomotionProvider providerName;
+
+    List<LocomotionProvider> getAvailableProviders() {
+        // Imagine we call a DAO here and the list is not fixed
+        List<LocomotionProvider> availableProviders = Arrays.stream(LocomotionProvider.values())
+                                                                        .collect(Collectors.toList());
+        // Why is it important to return an unmodifiable list ?
+        return Collections.unmodifiableList(availableProviders);
+    }
 
     List<Locomotion> getListOfScootersToTakeOf() {
         List<Locomotion> scooters = Randomizer.randomizer.objects(Scooter.class, 30).collect(Collectors.toList());
