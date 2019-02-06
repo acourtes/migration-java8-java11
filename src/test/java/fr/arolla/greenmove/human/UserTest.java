@@ -2,10 +2,13 @@ package fr.arolla.greenmove.human;
 
 import fr.arolla.greenmove.Locomotion;
 import fr.arolla.greenmove.LocomotionCategory;
+import fr.arolla.greenmove.LocomotionProvider;
 import fr.arolla.greenmove.Scooter;
+import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.List;
 import java.util.Optional;
 
 import static fr.arolla.Randomizer.randomizer;
@@ -101,6 +104,24 @@ public class UserTest {
         Optional<Locomotion> getAScooterToRent() {
             return Optional.empty();
         }
+    }
+
+    @Test
+    public void get_providers_list_and_try_to_modify_it() {
+        Provider provider = new Provider();
+        user.setProvider(provider);
+        User user2 = new User().setProvider(provider);
+
+        List<LocomotionProvider> availableProviders = this.user.getProvider().getAvailableProviders();
+        int initialSize = availableProviders.size();
+        try {
+            availableProviders.remove(LocomotionProvider.OTHER);
+            Assert.fail();
+        } catch (UnsupportedOperationException e) {
+            // That was awaited
+        }
+
+        assertThat(user2.getProvider().getAvailableProviders()).hasSize(initialSize);
     }
 
 }
