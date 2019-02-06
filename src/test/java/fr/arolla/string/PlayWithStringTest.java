@@ -2,48 +2,72 @@ package fr.arolla.string;
 
 import org.junit.Test;
 
-import java.io.File;
-import java.io.FileNotFoundException;
-import java.net.URL;
-import java.util.ArrayList;
-import java.util.List;
-import java.util.Scanner;
-import java.util.stream.Collectors;
-
 import static org.assertj.core.api.Assertions.assertThat;
 
 public class PlayWithStringTest {
 
     @Test
-    public void get_a_table_with_all_verses() throws FileNotFoundException {
-        List<String> poem = readPoem();
+    public void isBlank_string_test() {
+        final String myBlankString = " ";
 
-        // TODO Use new String class feature in Java 11
-        long numberOfVerse = poem.stream()
-                .filter(s -> !s.isEmpty())
-                .count();
-        String[] tabVerses = new String[Long.valueOf(numberOfVerse).intValue()];
-
-        List<String> versesList = poem.stream()
-                .filter(s -> !s.isEmpty())
-                .collect(Collectors.toList());
-
-        for (int i = 0; i < versesList.size(); i++) {
-            tabVerses[i] = versesList.get(i);
-        }
-
-        assertThat(tabVerses[Long.valueOf(numberOfVerse).intValue() - 1]).contains("Baudelaire");
+        assertThat(myBlankString).isNotEmpty();
+        // TODO Use a Java 11 new feature for this trivial test
+        assertThat(myBlankString.trim().isEmpty()).isTrue();
     }
 
-    private List<String> readPoem() throws FileNotFoundException {
-        URL fileURL = PlayWithStringTest.class.getResource("/baudelaire.txt");
-        File baudelaire = new File(fileURL.getFile());
-        Scanner scanner = new Scanner(baudelaire).useDelimiter("\n");
-        List<String> poem = new ArrayList<>();
+    @Test
+    public void get_all_lines_from_a_string() {
+        final String myFantasticString = "Once upon a time\nThere was a princess\nWho coded all day long in Java";
 
-        while (scanner.hasNext()) {
-            poem.add(scanner.next());
+        // TODO Use a Java 11 new feature to get a stream and no more a table
+        // Why is it better than a split ?
+        String[] splittedString = myFantasticString.split("\n");
+
+        assertThat(splittedString.length).isEqualTo(3);
+    }
+
+    @Test
+    public void strip_leading_a_string() {
+        // strip leading
+        String stringToStripLeading = "   Oops, I think my space bar has a problem";
+        final String expectedStripedLeadingString = "Oops, I think my space bar has a problem";
+
+        // TODO Use a Java 11 new feature to make this simply
+        while (Character.isWhitespace(stringToStripLeading.charAt(0))) {
+            stringToStripLeading = stringToStripLeading.substring(1);
         }
-        return poem;
+
+        assertThat(stringToStripLeading).isEqualTo(expectedStripedLeadingString);
+    }
+
+    @Test
+    public void strip_tailing_a_string() {
+        String stringToStripTailing = "I think my space bar has still problems       ";
+        final String expectedStripedTailingString ="I think my space bar has still problems";
+
+        // TODO Use a Java 11 new feature to make this simply
+        while (Character.isWhitespace(stringToStripTailing.charAt(stringToStripTailing.length() - 1))) {
+            stringToStripTailing = stringToStripTailing.substring(0, stringToStripTailing.length() - 1);
+        }
+
+        assertThat(stringToStripTailing).isEqualTo(expectedStripedTailingString);
+    }
+
+    @Test
+    public void strip_a_string() {
+        String stringToStrip = "    I can't stand anymore this f* space bar       ";
+        final String expectedStripedString ="I can't stand anymore this f* space bar";
+
+        // TODO Use a Java 11 new feature to make this in one step
+        // Lead
+        while (Character.isWhitespace(stringToStrip.charAt(0))) {
+            stringToStrip = stringToStrip.substring(1);
+        }
+        // Tail
+        while (Character.isWhitespace(stringToStrip.charAt(stringToStrip.length() - 1))) {
+            stringToStrip = stringToStrip.substring(0, stringToStrip.length() - 1);
+        }
+
+        assertThat(stringToStrip).isEqualTo(expectedStripedString);
     }
 }
