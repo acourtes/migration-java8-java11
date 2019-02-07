@@ -1,8 +1,8 @@
 # Migration from Java 8 to Java 11
-Code examples to migrate from java 8 to java 11.
 
-The code in Java 8 is on the java8 branch.
+Play with Modules
 
-The updated code in Java 11 is on the java-11 branch.
+- Database module : gives you the list of participantq for this Jam session
+- Viewer module : Use the database module to check if your are in the list
 
-You can directly work on the java8 branch and in case of difficulty or by curiosity, you can of course have look on the java-11 branch.
+`GOAL :` export database module to use it on viewer module
