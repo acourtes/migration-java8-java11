@@ -16,17 +16,17 @@ public class PlayWithOptionalTest {
 
     @Test
     public void return_a_non_empty_optional_if_the_one_we_got_is_empty() {
-        Random random = new Random();
+        var random = new Random();
         boolean isEven = random.nextInt() % 2 == 0;
         Optional<String> myOptional = isEven ? Optional.empty() : Optional.of("Toto");
-        Optional<String> finalOptional;
 
-        // TODO Use a Java 9 feature to simplify that
-        if (myOptional.isPresent()) {
+        /*if (myOptional.isPresent()) {
             finalOptional = myOptional;
         } else {
             finalOptional = Optional.of("Fail");
-        }
+        }*/
+
+        final Optional<String> finalOptional = myOptional.or(() -> Optional.of("Fail"));
 
         if (isEven) {
             assertThat(finalOptional.get()).isEqualTo("Fail");
@@ -37,12 +37,15 @@ public class PlayWithOptionalTest {
 
     @Test
     public void stream_an_optional() {
-        Provider provider = new Provider().setProviderName(LocomotionProvider.BIRD);
-        Stream<Optional<Provider>> optionalStream = Stream.of(Optional.of(provider));
+        var provider = new Provider().setProviderName(LocomotionProvider.BIRD);
+        var optionalStream = Stream.of(Optional.of(provider));
 
-        // TODO use a Java 9 feature to simplify that
-        List<LocomotionProvider> locomotionProviders = optionalStream.filter(Optional::isPresent)
+        /*List<LocomotionProvider> locomotionProviders = optionalStream.filter(Optional::isPresent)
                 .map(Optional::get)
+                .map(Provider::getProviderName)
+                .collect(Collectors.toList());*/
+
+        List<LocomotionProvider> locomotionProviders = optionalStream.flatMap(Optional::stream)
                 .map(Provider::getProviderName)
                 .collect(Collectors.toList());
 

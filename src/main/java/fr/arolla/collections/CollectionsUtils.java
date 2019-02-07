@@ -28,6 +28,8 @@ final class CollectionsUtils {
     static Map<String, String> generateUnmodifiableMapOfStrings() {
         // You can also use this kind of thing
         // Map.of("One", "1", "Two", "2", "Three", "3");
+        // Beware ! The of method can just take 10 elements max.
+        // Use the method .ofEntries for more than 10 elements.
         return randomizer.objects(String.class, 10)
                 .collect(Collectors.toUnmodifiableMap(Function.identity(), Function.identity()));
     }

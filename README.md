@@ -1,9 +1,7 @@
 # Migration from Java 8 to Java 11
 Code examples to migrate from Java 8 to Java 11.
 
-You can go through the different packages and modify the code to comply with the last version of Java. Don't forget to update first the POM file.
-
-All the portions of code to modify are marked with a TODO.
+This branch (java-11) contains code complying with some Java 9, Java 10 and Java 11 new features.
 
 The code is not perfect but there are plenty of tests, so don't hesitate to play with and modify it :)
 

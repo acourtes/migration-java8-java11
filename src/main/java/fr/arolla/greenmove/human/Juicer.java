@@ -8,8 +8,6 @@ import fr.arolla.greenmove.Scooter;
 import lombok.Data;
 
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Iterator;
 import java.util.List;
 import java.util.stream.Collectors;
 
@@ -33,6 +31,7 @@ class Juicer {
             collectedScootersToJuice.addAll(tempCollectedScootersToJuice);
         }
 
+        // Why copyOf is better than Collectors.toUnmodifiableList() ?
         return List.copyOf(collectedScootersToJuice);
     }
 
@@ -56,19 +55,19 @@ class Juicer {
      * @return The list of scooters
      */
     List<Locomotion> getOptimisticQuicklyScootersToJuice() {
-        final List<Locomotion> collectedScootersToJuice = new ArrayList<>();
         final List<Locomotion> listOfLocomotionsToTakeOf = provider.getListOfScootersToTakeOf();
 
-        // TODO Use a Java 9 feature to make all this in one instruction
-        for (Locomotion locomotion : listOfLocomotionsToTakeOf) {
+        /*for (Locomotion locomotion : listOfLocomotionsToTakeOf) {
             if (locomotion.getBatteryState() != LocomotionBatteryState.LOW) {
                 break;
             }
 
             collectedScootersToJuice.add(locomotion);
-        }
+        }*/
 
-        return Collections.unmodifiableList(collectedScootersToJuice);
+        return listOfLocomotionsToTakeOf.stream()
+                .takeWhile(s -> s.getBatteryState() == LocomotionBatteryState.LOW)
+                .collect(Collectors.toUnmodifiableList());
     }
 
     /**
@@ -80,16 +79,17 @@ class Juicer {
     List<Locomotion> getPessimisticQuicklyScootersToJuice() {
         final List<Locomotion> listOfLocomotionsToTakeOf = provider.getListOfScootersToTakeOf();
 
-        // TODO Use a Java 9 feature to make all this in one instruction
-        for (Iterator<Locomotion> iterator = listOfLocomotionsToTakeOf.iterator(); iterator.hasNext();) {
+        /*for (Iterator<Locomotion> iterator = listOfLocomotionsToTakeOf.iterator(); iterator.hasNext();) {
             Locomotion locomotion = iterator.next();
             if (locomotion.getBatteryState() == LocomotionBatteryState.FULL) {
                 iterator.remove();
             } else {
                 break;
             }
-        }
+        }*/
 
-        return Collections.unmodifiableList(listOfLocomotionsToTakeOf);
+        return listOfLocomotionsToTakeOf.stream()
+                .dropWhile(s -> s.getBatteryState() == LocomotionBatteryState.FULL)
+                .collect(Collectors.toUnmodifiableList());
     }
 }
