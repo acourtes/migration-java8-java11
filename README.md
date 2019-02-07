@@ -5,8 +5,6 @@ This branch (java-11) contains code complying with some Java 9, Java 10 and Java
 
 The code is not perfect but there are plenty of tests, so don't hesitate to play with and modify it :)
 
-This branch (java-11) contains code complying with some Java 9 and Java 10 innovations
-
 ## Stream and Optional with an example about renting public electric scooters
 A part of this project is about renting electric scooters and bikes with providers, users and juicers.
 
