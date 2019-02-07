@@ -6,8 +6,6 @@
 You have a beautiful services package wich contains some classes. The prupose of thoses classes is to retrieve some event from jsonFiles.
 
 Your goal, is to help Mr Stevens to improve his design using interfaces new features included in Java 9.
-
-There are no tests, you can create your own tests or create a module and run it with command lines.
   
 
 - `Interfaces in Java 7` : 
@@ -31,5 +29,5 @@ There are no tests, you can create your own tests or create a module and run it 
     - Private interface method cannot be abstract.
     - Private method can be used only inside interface.
     - Private static method can be used inside other static and non-static interface methods.
-    -  Private non-static methods cannot be used inside private static methods.
+    - Private non-static methods cannot be used inside private static methods.
      

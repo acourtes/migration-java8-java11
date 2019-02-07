@@ -24,7 +24,7 @@ public class NaturalActivityReader implements DB {
     public JsonNode getEventsFrom(String fileName) throws IOException {
         JsonNode rooNode = readFile();
         JsonNode eventsNode = getEventsNote(rooNode);
-        JsonNode data = eventsNode.get(HIKING_EVENT);
+        JsonNode data = eventsNode.get(PAINT_BALL_EVENT);
         return data;
     }
 
