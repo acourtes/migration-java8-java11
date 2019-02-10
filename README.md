@@ -21,9 +21,28 @@ There's a unit test class to play with these new features.
 ## New features for file read and write
 There's a unit test class to play with these new features.
 
-## New feature for Optional class
+## New features for Optional class
 There's a unit test class to play with these new features.
 
 The examples are not really awesome but they show at least new features.
+
+## Summary about new used features
+###From Java 9
+* Collections : *List.of*, *Set.of*, *Map.of*
+* Optional : *or*, *ifPresentOrElse*
+* Scanner class : new method *tokens*
+* Modular programming
+* Private methods in interfaces
+
+###From Java 10
+* New keyword *var* for local variables
+* Method *copyOf* for List, Set and Map
+* New Collectors : *toUnmodifiableList*, *toUnmodifiableSet*, *toUnmodifiableMap*
+* Stream : *ofNullable*, *dropWhile*, *takeWhile*
+* Optional : *orElseThrow*
+
+###From Java 11
+* String : *isBlank*, *lines*, *strip*, *stripleading*, *stripTailing*, *repeat*
+* Files : *readString*, *writeString*
 
 Enjoy !
