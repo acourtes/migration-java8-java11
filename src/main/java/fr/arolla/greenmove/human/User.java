@@ -23,15 +23,6 @@ class User {
         return Optional.empty();
     }
 
-    void getAPublicLocomotion(@NonNull Locomotion locomotion) {
-        // TODO Use Java 9 new stuffs
-        if (tryAccessToLocomotion(locomotion).isPresent()) {
-            rentProcess(locomotion);
-        } else {
-            makeUserSad();
-        }
-    }
-
     void getAScooter() {
         Optional<Locomotion> scooterToRent = provider.getAScooterToRent();
 

@@ -59,7 +59,7 @@ class Juicer {
         final List<Locomotion> collectedScootersToJuice = new ArrayList<>();
         final List<Locomotion> listOfLocomotionsToTakeOf = provider.getListOfScootersToTakeOf();
 
-        // TODO Use a Java 9 feature to make all this in one instruction
+        // TODO Use a Java 10 feature to make all this in one instruction
         for (Locomotion locomotion : listOfLocomotionsToTakeOf) {
             if (locomotion.getBatteryState() != LocomotionBatteryState.LOW) {
                 break;
@@ -80,7 +80,7 @@ class Juicer {
     List<Locomotion> getPessimisticQuicklyScootersToJuice() {
         final List<Locomotion> listOfLocomotionsToTakeOf = provider.getListOfScootersToTakeOf();
 
-        // TODO Use a Java 9 feature to make all this in one instruction
+        // TODO Use a Java 10 feature to make all this in one instruction
         for (Iterator<Locomotion> iterator = listOfLocomotionsToTakeOf.iterator(); iterator.hasNext();) {
             Locomotion locomotion = iterator.next();
             if (locomotion.getBatteryState() == LocomotionBatteryState.FULL) {

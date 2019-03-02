@@ -42,7 +42,7 @@ The examples are not really awesome but they show at least new features.
 * Optional : *orElseThrow*
 
 ### From Java 11
-* String : *isBlank*, *lines*, *strip*, *stripleading*, *stripTailing*, *repeat*
+* String : *isBlank*, *lines*, *strip*, *stripLeading*, *stripTailing*, *repeat*
 * Files : *readString*, *writeString*
 
 Enjoy !

@@ -64,6 +64,6 @@ public class PlayWithFileTest {
         assertThat(path).isNotNull();
         assertThat(path).exists();
         assertThat(path).hasFileName("test.txt");
-        assertThat(path).hasContent("Toto\nTata");
+        assertThat(path).hasContent("Toto" + System.lineSeparator() + "Tata");
     }
 }
