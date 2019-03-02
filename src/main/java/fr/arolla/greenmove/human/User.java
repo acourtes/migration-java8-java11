@@ -23,16 +23,6 @@ class User {
         return Optional.empty();
     }
 
-    void getAPublicLocomotion(@NonNull Locomotion locomotion) {
-        /*if (tryAccessToLocomotion(locomotion).isPresent()) {
-            rentProcess(locomotion);
-        } else {
-            makeUserSad();
-        }*/
-
-        tryAccessToLocomotion(locomotion).ifPresentOrElse(this::rentProcess, this::makeUserSad);
-    }
-
     void getAScooter() {
         Optional<Locomotion> scooterToRent = provider.getAScooterToRent();
         /*if (scooterToRent.isPresent()) {

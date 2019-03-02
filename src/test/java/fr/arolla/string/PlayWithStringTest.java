@@ -16,7 +16,11 @@ public class PlayWithStringTest {
 
     @Test
     public void get_all_lines_from_a_string() {
-        final var myFantasticString = "Once upon a time\nThere was a princess\nWho coded all day long in Java";
+        final var lineSeparator = System.lineSeparator();
+
+        final var myFantasticString = "Once upon a time" + lineSeparator
+                + "There was a princess" + lineSeparator
+                + "Who coded all day long in Java";
 
         // TODO Use a Java 11 new feature to get a stream and no more a table
         // Why is it better than a split ?
@@ -27,11 +31,13 @@ public class PlayWithStringTest {
 
     @Test
     public void strip_leading_a_string() {
-        // strip leading
-        final var stringToStripLeading = "   Oops, I think my space bar has a problem";
-        final var expectedStripedLeadingString = "Oops, I think my space bar has a problem";
+        // \u2009 represents a thin space
+        var stringToStripLeading = " \u2009  Oops, I think my space bar has a problem ";
+        final var expectedStripedLeadingString = "Oops, I think my space bar has a problem ";
 
-        /*while (Character.isWhitespace(stringToStripLeading.charAt(0))) {
+        /*stringToStripLeading = stringToStripLeading.replaceAll("\\u2009", "");
+
+        while (Character.isWhitespace(stringToStripLeading.charAt(0))) {
             stringToStripLeading = stringToStripLeading.substring(1);
         }*/
 
@@ -40,10 +46,12 @@ public class PlayWithStringTest {
 
     @Test
     public void strip_tailing_a_string() {
-        final var stringToStripTailing = "I think my space bar has still problems       ";
-        final var expectedStripedTailingString ="I think my space bar has still problems";
+        // \u2009 represents a thin space
+        var stringToStripTailing = " I think my space bar has still problems   \u2009   ";
+        final var expectedStripedTailingString =" I think my space bar has still problems";
 
-        /*while (Character.isWhitespace(stringToStripTailing.charAt(stringToStripTailing.length() - 1))) {
+        /* stringToStripTailing = stringToStripTailing.replaceAll("\\u2009", "");
+        while (Character.isWhitespace(stringToStripTailing.charAt(stringToStripTailing.length() - 1))) {
             stringToStripTailing = stringToStripTailing.substring(0, stringToStripTailing.length() - 1);
         }*/
 
@@ -52,17 +60,11 @@ public class PlayWithStringTest {
 
     @Test
     public void strip_a_string() {
-        final var stringToStrip = "    I can't stand anymore this f* space bar       ";
-        final String expectedStripedString ="I can't stand anymore this f* space bar";
+        // \u2009 represents a thin space
+        var stringToStrip = "\u2009  I can't stand anymore this f* space bar  \u2009";
+        final var expectedStripedString ="I can't stand anymore this f* space bar";
 
-        // Lead
-        /*while (Character.isWhitespace(stringToStrip.charAt(0))) {
-            stringToStrip = stringToStrip.substring(1);
-        }
-        // Tail
-        while (Character.isWhitespace(stringToStrip.charAt(stringToStrip.length() - 1))) {
-            stringToStrip = stringToStrip.substring(0, stringToStrip.length() - 1);
-        }*/
+        // stringToStrip = stringToStrip.replaceAll("\\u2009", "");
 
         assertThat(stringToStrip.strip()).isEqualTo(expectedStripedString);
     }
@@ -78,7 +80,7 @@ public class PlayWithStringTest {
             bigLaughBuilder.append(laugh);
         }*/
 
-        final String repeatLaugh = laugh.repeat(10);
+        final var repeatLaugh = laugh.repeat(10);
 
         assertThat(repeatLaugh).isEqualTo(bigLaugh);
     }

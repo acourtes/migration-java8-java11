@@ -51,28 +51,6 @@ public class UserTest {
     }
 
     @Test
-    public void a_user_accessing_a_locomotion_changes_state_and_get_scooter_id_in_return() {
-        for (int i = 0; i < 10; i++) {
-            final Locomotion locomotion = randomizer.nextObject(Locomotion.class);
-            user.setUsingALocomotion(false);
-            boolean isRentable = user.tryAccessToLocomotion(locomotion).isPresent();
-
-            user.getAPublicLocomotion(locomotion);
-
-            if (isRentable) {
-                assertThat(user.isUsingALocomotion()).isTrue();
-                assertThat(locomotion.isRented()).isTrue();
-            } else {
-                assertThat(user.isUsingALocomotion()).isFalse();
-                assertThat(user.isHappy()).isFalse();
-                if (locomotion.isPublicLocomotion()) {
-                    assertThat(locomotion.isRented()).isTrue();
-                }
-            }
-        }
-    }
-
-    @Test
     public void test_successful_scooter_rental_process_bis() {
         user.setProvider(new GoodProvider());
         user.getAScooter();

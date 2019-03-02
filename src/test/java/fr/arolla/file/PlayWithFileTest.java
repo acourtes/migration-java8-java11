@@ -56,7 +56,7 @@ public class PlayWithFileTest {
         //List<String> strings = Arrays.asList("Toto", "Tata");
 
         //Path path = Files.write(testFile.toPath(), strings, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
-        final var contentToWrite = "Toto\nTata";
+        final var contentToWrite = "TotoTata";
         Path path = Files.writeString(testFile.toPath(), contentToWrite, StandardOpenOption.CREATE, StandardOpenOption.WRITE);
 
         assertThat(path).isNotNull();
